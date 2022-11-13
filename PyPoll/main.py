@@ -1,5 +1,8 @@
+# importing the dependencies
 import csv
 import os
+
+# opening and reading the csv file
 csvpath = os.path.join("Resources","election_data.csv")
 with open(csvpath) as csvfile:
     file = csv.reader(csvfile, delimiter=",")
@@ -8,6 +11,8 @@ with open(csvpath) as csvfile:
     n=0
     votes={}  
     cnt=0
+
+# iterating through the rows and finding the candidates and counting their votes
     for row in file:
         if row[0] != "":
             t+=1
@@ -15,10 +20,11 @@ with open(csvpath) as csvfile:
             votes[row[2]] = 1     
         else:
             votes[row[2]] += 1
-           
+
+# determinig the winner           
     winner = [(value, key) for key, value in votes.items()]
     
-
+# showing the results
     print("Election Results")
     print("----------------")
     print(f"Total Votes : {t}")
@@ -29,6 +35,7 @@ with open(csvpath) as csvfile:
     print(f"winner : {max(winner)[1]}")
     print("----------------")
 
+# creating a text file consisting the results
     with open('analysis/results.txt', 'w') as r:
         r.write(f"Election Results\n----------------\nTotal Votes : {t}\n----------------\n")
         for key, value in votes.items():
